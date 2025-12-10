@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
     path('', include(('apps.articulos.urls', 'articulos'), namespace='apps.articulos')),
+    path('', include(('apps.nosotros.urls','nosotros'))),
     
 
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

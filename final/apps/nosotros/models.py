@@ -6,7 +6,7 @@ class Equipo(models.Model):
     informacion = models.TextField()
     fecha_publicacion = models.DateField(auto_now_add=True)
     activo = models.BooleanField(default=True)
-    imagen = models.ImageField(null=True, blank=True, upload_to='media', default='media/articulo_defecto.png')
+    imagen = models.ImageField(null=True, blank=True, upload_to='media', default='media/nosotros_defecto.png')
     email = models.EmailField(blank=True, null=True)
     
   
@@ -16,7 +16,7 @@ class Equipo(models.Model):
 
 class Image(models.Model):
     equipo = models.ForeignKey(Equipo, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(null=False, upload_to='articulo', default='articulo/articulo_defecto.jpg')
+    image = models.ImageField(null=False, upload_to='articulo', default='articulo/nosotros_defecto.jpg')
 
     def delete(self, using = None, keep_parents = False):
         self.image.delete()

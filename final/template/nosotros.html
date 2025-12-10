@@ -1,22 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
-<title>{% block title %} Articulos {% endblock title %}</title>
+<title>{% block title %} Nosotros{% endblock title %}</title>
+
 {% block contenido %}
 <div class="container-wrap">
-    <h1>CONOCE A NUESTRO EQUIPO</h1>
-    <div class="equipo-container">
-        {% for miembro in equipo %}
-        <div class="miembro-card">
-            <!-- {% if equipo.foto %}
-                <img src="{{ miembro.foto.url }}" alt="Foto de {{ miembro.nombre }}" width="150">
-            {% endif %} -->
+    <div id="fh5co-work">
+        <div class="row">
+            <h1 class="text-center">CONOCE A NUESTRO EQUIPO</h1>
+            <br>
             
-            <h2>{{ equipo.nombre }}</h2>
-            <p><strong>{{ equipo.cargo }}</strong></p>
+            {% for miembro in nosotros %}
             
-            <a href="{% url 'nosotros_individual' pk=equipo.pk %}">Ver Perfil Completo</a>
+            <div class="col-md-4 text-center animate-box">
+                <a href="{% url 'nosotros:nosotros_individual' id=miembro.id %}" class="work" style="background-image: url('{{ miembro.imagen.url }}');">
+                
+                <div class="desc">
+                    <h3>{{ miembro.nombre }}</h3>
+                    <p><strong>{{ miembro.cargo }}</strong></p>
+                    <small>Informacion {{ miembro.informacion }}</small>
+                </div>
+                
+                </a>
+            </div>
+            
+            {% endfor %} 
+            
         </div>
-        {% endfor %}
     </div>
-
-{% endblock %}
+</div>
+{% endblock contenido %}
