@@ -12,7 +12,7 @@
             {% for miembro in nosotros %}
             
             <div class="col-md-4 text-center animate-box">
-                <a href="{% url 'nosotros:nosotros_individual' id=miembro.id %}" class="work" style="background-image: url('{{ miembro.imagen.url }}');">
+                <a href="{% url 'nosotros:nosotros_individual' pk=miembro.pk %}" class="work" style="background-image: url('{{ miembro.imagen.url }}');">
                 
                 <div class="desc">
                     <h3>{{ miembro.nombre }}</h3>

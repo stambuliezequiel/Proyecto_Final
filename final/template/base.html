@@ -75,9 +75,20 @@
 						<ul>
 							<li class="active"><a href="{% url 'index' %}">Inicio</a></li>
 							<li><a href="{% url 'apps.articulos:articulos' %}">Articulos</a></li>
-							<li><a href="blog.html">Sobre Nosotros</a></li>
-							<li><a href="about.html">Contactanos</a></li>
-							<li><a href="contact.html">Iniciar Sesion</a></li>
+							<li><a href="{% url 'apps.nosotros:nosotros' %}">Sobre Nosotros</a></li>
+							<li><a href="{% url 'apps.contacto:contacto' %}">Contactanos</a></li>
+							{% if user.is_authenticated %}
+    <li style="display:inline-block;">
+        <form method="post" action="{% url 'apps.usuario:logout' %}" style="margin: 0; padding: 0;">
+            {% csrf_token %}
+            <button type="submit" style="background: none; border: none; padding: 15px; color: inherit; font: inherit;">
+                Cerrar Sesión ({{ user.username }})
+            </button>
+        </form>
+    </li>
+{% else %}
+    <li><a href="{% url 'apps.usuario:login' %}">Iniciar Sesión</a></li>
+{% endif %}
 						</ul>
 					</div>
 				</div>
@@ -86,10 +97,10 @@
 		</div>
 	</nav>
 
-    {% block contenido %}
+{% block contenido %}
 
 
-    {% endblock contenido %}
+{% endblock contenido %}
 
 
 

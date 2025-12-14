@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<div class="container-wrap">
+    <div id="fh5co-contact">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
+                <h2>CONTÁCTANOS</h2>
+                <p>Envíanos tu mensaje</p>
+            </div>
+        </div>
+
+      
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="animate-box">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" 
+                                           id="nombre"
+                                           name="nombre" 
+                                           class="form-control" 
+                                           placeholder="Tu nombre completo"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" 
+                                           id="email"
+                                           name="email" 
+                                           class="form-control" 
+                                           placeholder="tucorreo@ejemplo.com"
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="mensaje">Mensaje</label>
+                                    <textarea id="mensaje"
+                                              name="mensaje" 
+                                              class="form-control" 
+                                              rows="7" 
+                                              placeholder="Escribe tu mensaje aquí..."
+                                              required></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        Enviar Mensaje
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="row row-pb-md">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 text-center animate-box">
+                        <div class="services">
+                            <span class="icon">
+                                <i class="icon-location"></i>
+                            </span>
+                            <h3>Ubicación</h3>
+                            <p>Resistencia, Chaco<br>Argentina</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-center animate-box">
+                        <div class="services">
+                            <span class="icon">
+                                <i class="icon-mail"></i>
+                            </span>
+                            <h3>Email</h3>
+                            <p><a href="mailto:info@blog.com">info@blog.com</a></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-center animate-box">
+                        <div class="services">
+                            <span class="icon">
+                                <i class="icon-phone"></i>
+                            </span>
+                            <h3>Teléfono</h3>
+                            <p><a href="tel:+5493624000000">+54 9 362 400-0000</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+        {% if user.is_miembro %}
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="fh5co-heading animate-box">
+                    <h2>Mensajes Recibidos</h2>
+                </div>
+                
+                {% for mensaje in contactos %}
+                <div class="col-md-6 animate-box">
+                    <div class="fh5co-blog">
+                        <div class="blog-text">
+                            <h3>{{ mensaje.nombre }}</h3>
+                            <span>
+                                <i class="icon-mail"></i> {{ mensaje.email }} | 
+                                <i class="icon-clock"></i> {{ mensaje.fecha_envio|date:"d/m/Y H:i" }}
+                            </span>
+                            <p>{{ mensaje.mensaje|truncatewords:30 }}</p>
+                            <ul class="stuff">
+                                <li><a href="#">Ver completo <i class="icon-arrow-right"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-md-12 text-center animate-box">
+                    <p style="color: #999; padding: 40px 0;">No hay mensajes recibidos aún.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+{% if messages %}
+    {% for message in messages %}
+    <script>
+        Swal.fire({
+            title: 'Felicitaciones',
+            html: '<p>Tu mensaje ha sido enviado correctamente</p>',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#3085d6',
+            allowOutsideClick: false
+        });
+    </script>
+    {% endfor %}
+{% endif %}
+
+{% endblock contenido %}

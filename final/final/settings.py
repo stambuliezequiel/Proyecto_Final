@@ -37,10 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'apps.comentarios',
     'apps.articulos',
-    #'apps.usuario',
+    'apps.usuario',
     'apps.nosotros.apps.NosotrosConfig',
+    'apps.contacto',
+    "crispy_forms",
+
 ]
 
 MIDDLEWARE = [
@@ -83,6 +86,19 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL    ='usuario.Usuario'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smpt.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'stambuliezequiel@gmail.com'
+EMAIL_HOST_PASSWORD = 'contraseña_email'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL= '/'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -130,3 +146,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = 'media/'
 
 MEDIA_ROOT = '../final/media/'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"

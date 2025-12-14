@@ -1,6 +1,7 @@
 from datetime import timezone
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=30, null=False, default='Categoria por defecto')
@@ -15,9 +16,10 @@ class Articulo(models.Model):
     contenido = models.TextField()
     fecha_publicacion = models.DateField(auto_now_add=True)
     activo = models.BooleanField(default=True)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL,null=True,blank=True)
     imagen = models.ImageField(null=True, blank=True, upload_to='media', default='media/articulo_defecto.png')
     publicado = models.DateTimeField(default= timezone.now)
+    editor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
 
     class Meta:
         ordering = ('-publicado',)

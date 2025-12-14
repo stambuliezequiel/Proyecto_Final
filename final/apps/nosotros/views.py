@@ -11,7 +11,7 @@ class EquipoListView(ListView):
 class EquipoDetailView(DetailView):
     model = Equipo
     template_name = 'nosotros_individual.html'
-    context_object_name = 'nosotros'
+    context_object_name = 'miembro'
     queryset = Equipo.objects.all()
 
 # Create your views here.

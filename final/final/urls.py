@@ -24,8 +24,11 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
-    path('', include(('apps.articulos.urls', 'articulos'), namespace='apps.articulos')),
-    path('', include(('apps.nosotros.urls','nosotros'))),
+    path('', include('apps.articulos.urls')),
+    path('', include('apps.nosotros.urls', namespace='nosotros')),
+    path('', include('apps.contacto.urls')),
+    path('', include('apps.usuario.urls')),
+    path('', include('django.contrib.auth.urls'))
     
 
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
