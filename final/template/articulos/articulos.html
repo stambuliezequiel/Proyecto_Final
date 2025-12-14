@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<title>{% block title %} Articulos {% endblock title %}</title>
+{% block contenido %}
+
+
+<div class="container-wrap">
+    <div id="fh5co-work">
+        <h3><strong>Filtrar</strong></h3>
+        <ul class="text-center">
+            <a class="btn btn-info btn btn-sm"  href="{% url 'apps.articulos:articulos' %}?orden=reciente">Mas Recientes</a>
+            <a class="btn btn-info btn btn-sm"  href="{% url 'apps.articulos:articulos' %}?orden=antiguo">Mas Antiguos</a>
+            <a class="btn btn-info btn btn-sm"  href="{% url 'apps.articulos:articulos' %}?orden=alfabetico">Orden Alfabetico</a>
+            <a class="btn btn-info btn btn-sm"  href="{% url 'apps.articulos:articulos' %}">Todas las Categorias</a>
+            <a class="btn btn-info btn btn-sm"  href="{% url 'apps.articulos:articulos_form' %}">Crear Un Articulo</a>
+   
+        </ul>
+        
+        
+            {% for i in articulos %}
+        
+            <div class="col-md-4 text-center animate-box">
+            
+                <a href="{% url 'apps.articulos:articulo_individual' i.id %}" class="work" style="background-image: url('{{ i.imagen.url }}');">
+                
+                <div class="desc">
+                    <h3>{{ i.titulo }}</h3>
+                    
+                    <span>{{ i.resumen }}</span>
+                    <br>
+                    <small>Categoría: {{ i.categoria }}</small>
+                </div>
+            </a>
+            
+            </div>
+        {% endfor %}
+        
+    </div>
+</div>
+</div>
+
+{% endblock contenido %}

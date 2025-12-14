@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+<title>{% block title %} Nosotros{% endblock title %}</title>
+
+{% block contenido %}
+<div class="container-wrap">
+    <div id="fh5co-work">
+        <div class="row">
+            <h1 class="text-center">CONOCE A NUESTRO EQUIPO</h1>
+            <br>
+            
+            {% for miembro in nosotros %}
+            
+            <div class="col-md-4 text-center animate-box">
+                <a href="{% url 'nosotros:nosotros_individual' pk=miembro.pk %}" class="work" style="background-image: url('{{ miembro.imagen.url }}');">
+                
+                <div class="desc">
+                    <h3>{{ miembro.nombre }}</h3>
+                    <p><strong>{{ miembro.cargo }}</strong></p>
+                    <small>Informacion {{ miembro.informacion }}</small>
+                </div>
+                
+                </a>
+            </div>
+            
+            {% endfor %} 
+            
+        </div>
+    </div>
+</div>
+{% endblock contenido %}

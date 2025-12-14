@@ -1,0 +1,78 @@
+
+{% extends 'base.html' %}
+{% load static %}
+<title>{% block title %} {{ articulos.titulo }} {% endblock title %}</title>
+{% block contenido %}
+
+<div class="container-wrap">
+    <div id="fh5co-work">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h2>{{ articulos.titulo }}</h2>
+                <p class="text-muted">Publicado el {{ articulos.fecha_publicacion }} | Categoría: {{ articulos.categoria }}</p>
+                
+                {% if articulos.imagen %}
+                <div class="blog-img" style="margin-bottom: 30px;">
+                    <img src="{{ articulos.imagen.url }}" class="img-responsive" alt="{{ articulos.titulo }}">
+                </div>
+                {% endif %}
+                
+                <div class="blog-text">
+                    <p><strong>Resumen:</strong> {{ articulos.resumen }}</p>
+                    <p>{{ articulos.contenido|linebreaks }}</p>
+                </div>
+
+                <hr>
+
+                
+                <div class="comentarios-section" style="margin-top: 50px;">
+                    <h3>Comentarios ({{ comentarios.count }})</h3>
+                    
+                    {% if comentarios %}
+                        {% for comentario in comentarios %}
+                        <div class="comentario" style="background: #f8f8f8; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                            <p><strong>{{ comentario.usuario.username }}</strong> 
+                            <small class="text-muted">- {{ comentario.fecha_creacion|date:"d/m/Y H:i" }}</small></p>
+                            <p>{{ comentario.contenido }}</p>
+                            
+                            {% if user == comentario.usuario %}
+                            <div>
+                                <a href="{% url 'apps.comentarios:editar_comentario' comentario.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                                <a href="{% url 'apps.comentarios:eliminar_comentario' comentario.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">No hay comentarios aún. ¡Sé el primero en comentar!</p>
+                    {% endif %}
+
+                    
+                    {% if user.is_authenticated %}
+                    <div style="margin-top: 30px;">
+                        <h4>Agregar un comentario</h4>
+                        <form method="POST" action="{% url 'apps.comentarios:comentarios' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="articulo_id" value="{{ articulos.pk }}">
+                            <div class="form-group">
+                                <textarea name="contenido" class="form-control" rows="4" placeholder="Escribe tu comentario aquí..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar Comentario</button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <p class="text-muted" style="margin-top: 30px;">
+                        <a href="{% url 'apps.usuario:login' %}">Inicia sesión</a> para dejar un comentario.
+                    </p>
+                    {% endif %}
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <a href="{% url 'apps.articulos:articulos' %}" class="btn btn-default">← Volver a Artículos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contenido %}
