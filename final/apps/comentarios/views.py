@@ -38,7 +38,7 @@ def eliminar_comentario(request, pk):
         messages.error(request, 'No tienes permiso para eliminar este comentario.')
         return redirect('apps.articulos:articulo_individual', id=articulo_id)
     
-    return render(request, 'comentarios_eliminar.html', {'comentario': comentario})
+    return render(request, 'comentarios/eliminar_comentarios.html', {'comentario': comentario})
 
 
 @login_required
@@ -58,7 +58,7 @@ def editar_comentario(request, pk):
             messages.success(request, 'Comentario actualizado exitosamente.')
             return redirect('apps.articulos:articulo_individual', id=articulo_id)
     
-    return render(request, 'comentarios_editar.html', {'comentario': comentario})
+    return render(request, 'comentarios/comentarios_editar.html', {'comentario': comentario})
 
 
 class ListadoComentarioView(View):
