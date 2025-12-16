@@ -11,16 +11,15 @@ class RegistrarUsuario(CreateView):
     form_class = RegistroUsuarioForm
 
     def form_valid(self, form):
-        messages.success(self.request, 'Registro Exitoso')
+        messages.success(self.request, 'Registro exitoso. Por favor inicia sesión.')
         form.save()
-
         return redirect('apps.usuario:registrar')
-    
+
 
 class LoginUsuario(LoginView):
     template_name = 'registration/login.html'
     success_url = reverse_lazy('index')
-   
+
     def get_success_url(self):
         messages.success(self.request, 'Login exitoso')
         return super().get_success_url()
@@ -32,7 +31,4 @@ class LogoutUsuario(LogoutView):
 
     def get_success_url(self):
         messages.success(self.request, 'Logout Exitoso!')
-
         return reverse_lazy('index')
-    
-    
