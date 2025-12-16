@@ -17,9 +17,9 @@
         {% for categoria in categorias %}
         <div class="col-md-12 p-5">
             <h4 class="text-center mt-3 mb-3">{{ categoria.nombre | capfirst }}</h4>
-                <p class="text-center"><a class="btn btn-success" href="{% url 'apps.articulo:articulos_por_categoria' pk=categoria.pk %}">Ingresá</a></p>
+                <p class="text-center"><a class="btn btn-success" href="{% url 'apps.articulos:articulos_por_categoria' pk=categoria.pk %}">Ingresá</a></p>
             {% if user.is_superuser or request.user|has_group:"Colaborador"  %}
-                <p class="text-center"><a class="btn btn-warning" href="{% url 'apps.articulo:categoria_delete' pk=categoria.pk %}">Eliminar</a></p>
+                <p class="text-center"><a class="btn btn-warning" href="{% url 'apps.articulos:categoria_delete' pk=categoria.pk %}">Eliminar</a></p>
             {% endif %}
         {% empty %}
             <h3 class="text-center mt-3 mb-3">No hay categorías</h3>

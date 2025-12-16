@@ -13,31 +13,38 @@
             <a class="btn btn-info btn btn-sm"  href="{% url 'apps.articulos:articulos' %}?orden=antiguo">Mas Antiguos</a>
             <a class="btn btn-info btn btn-sm"  href="{% url 'apps.articulos:articulos' %}?orden=alfabetico">Orden Alfabetico</a>
             <a class="btn btn-info btn btn-sm"  href="{% url 'apps.articulos:articulos' %}">Todas las Categorias</a>
-            <a class="btn btn-info btn btn-sm"  href="{% url 'apps.articulos:articulos_form' %}">Crear Un Articulo</a>
-   
+            
+            {% if user.is_authenticated %}
+            <a class="btn btn-success btn btn-sm"  href="{% url 'apps.articulos:articulos_form' %}">➕ Crear Artículo</a>
+            {% endif %}
         </ul>
         
         
-            {% for i in articulos %}
+        {% for i in articulos %}
         
-            <div class="col-md-4 text-center animate-box">
+        <div class="col-md-4 text-center animate-box">
             
-                <a href="{% url 'apps.articulos:articulo_individual' i.id %}" class="work" style="background-image: url('{{ i.imagen.url }}');">
+            <a href="{% url 'apps.articulos:articulo_individual' i.id %}" class="work" style="background-image: url('{{ i.imagen.url }}');">
                 
                 <div class="desc">
                     <h3>{{ i.titulo }}</h3>
-                    
                     <span>{{ i.resumen }}</span>
                     <br>
                     <small>Categoría: {{ i.categoria }}</small>
                 </div>
             </a>
             
+            {% if user.is_authenticated and user.is_staff %}
+            <div style="margin-top: 10px;">
+                <a href="{% url 'apps.articulos:articulo_actualizar' i.pk %}" class="btn btn-primary btn-sm">✏️ Editar</a>
+                <a href="{% url 'apps.articulos:articulo_eliminar' i.pk %}" class="btn btn-danger btn-sm">🗑️ Eliminar</a>
             </div>
+            {% endif %}
+            
+        </div>
         {% endfor %}
         
     </div>
-</div>
 </div>
 
 {% endblock contenido %}

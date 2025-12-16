@@ -1,12 +1,11 @@
 from django.urls import path
-from .views import *
+from . import views
 
 app_name = 'apps.comentarios'
 
 urlpatterns = [
-    path('comentar/<int:id>/', ComentarArticuloView.as_view(), name='comentar_articulo'),
-    path('listado_comentario/', ListadoComentarioView.as_view(), name='listado_comentario'),
-    path('agregar_comentario/', AgregarComentarioView.as_view(), name='agregar_comentario'),
-    path('eliminar_comentario/<int:pk>/', DeleteComentario.as_view(), name='eliminarComentario'),
-    path('detalle_articulo/<int:articulo_id>/', DetalleArticuloView.as_view(), name='detalle_articulo'),
+    path('comentarios/', views.ComentariosView, name='comentarios'),
+    path('comentarios/eliminar/<int:pk>/', views.eliminar_comentario, name='eliminar_comentario'),
+    path('comentarios/editar/<int:pk>/', views.editar_comentario, name='editar_comentario'),
+    path('listado_comentario/', views.ListadoComentarioView.as_view(), name='listado_comentario'),
 ]

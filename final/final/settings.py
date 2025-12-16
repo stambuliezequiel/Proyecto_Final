@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.nosotros.apps.NosotrosConfig',
     'apps.contacto',
     "crispy_forms",
+    'crispy_bootstrap5',
 
 ]
 

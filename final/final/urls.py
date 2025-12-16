@@ -25,10 +25,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
     path('', include('apps.articulos.urls')),
+    path('', include('apps.comentarios.urls')),
     path('', include('apps.nosotros.urls', namespace='nosotros')),
     path('', include('apps.contacto.urls')),
     path('', include('apps.usuario.urls')),
     path('', include('django.contrib.auth.urls'))
+    
     
 
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

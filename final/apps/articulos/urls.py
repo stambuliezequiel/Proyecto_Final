@@ -5,7 +5,7 @@ app_name = 'apps.articulos'
 
 urlpatterns = [
     path('articulos/', ArticuloListView.as_view(), name='articulos'),
-    path('articulos/<int:id>/', ArticuloDetailView.as_view(), name= 'articulo_individual'),
+    path('articulos/<int:id>/', ArticuloDetailView.as_view(), name='articulo_individual'),
     path('articulo/crear/', ArticuloCreateView.as_view(), name='articulos_form'),
     path('articulos/<int:pk>/actualizar/', ArticuloUpdateView.as_view(), name='articulo_actualizar'),
     path('articulos/<int:pk>/eliminar/', ArticuloDeleteView.as_view(), name='articulo_eliminar'),
